@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SECURITY BREACH</title>
+  <meta name="description" content="An advanced, educational security alert demonstration with modern design and interactive features.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+  <style>
+    :root {
+      --bg-primary: #0a0f1c;
+      --bg-secondary: #0f1724;
+      --bg-card: rgba(15, 23, 42, 0.8);
+      --bg-card-glass: rgba(15, 23, 42, 0.6);
+      --accent: #ef4444;
+      --accent-hover: #dc2626;
+      --muted: #9aa6b2;
+      --text-primary: #e6eef6;
+      --text-secondary: #cbd5e1;
+      --border: rgba(255, 255, 255, 0.1);
+      --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      --font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, #071827 100%);
+      font-family: var(--font-family);
+      color: var(--text-primary);
+      overflow-x: hidden;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 1rem;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 480px;
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    .card {
+      background: var(--bg-card-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 2rem;
+      box-shadow: var(--glass-shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.875rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+      border: 1px solid var(--border);
+    }
+
+    .badge svg {
+      width: 1rem;
+      height: 1rem;
+    }
+
+    .demo-label {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+    }
+
+    h1 {
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      margin: 0.5rem 0 1rem;
+      letter-spacing: -0.02em;
+      font-weight: 700;
+    }
+
+    .alert {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      padding: 1.25rem;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(239, 68, 68, 0.08));
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      margin: 1.5rem 0 2rem;
+      animation: pulse 3s infinite ease-in-out;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .alert::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(239, 68, 68, 0.1) 0%, transparent 70%);
+      animation: rotate 6s linear infinite;
+    }
+
+    .alert .icon {
+      width: 4rem;
+      height: 4rem;
+      border-radius: 16px;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: white;
+      box-shadow: 0 8px 24px rgba(239, 68, 68, 0.3);
+      position: relative;
+      z-index: 1;
+    }
+
+    .alert .content {
+      flex: 1;
+      position: relative;
+      z-index: 1;
+    }
+
+    .alert .content p {
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    .alert .content p:first-child {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .alert .content p:last-child {
+      font-size: 0.875rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+
+    .timer {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      border: 1px solid var(--border);
+    }
+
+    .timer p {
+      margin: 0;
+      font-size: 0.875rem;
+      color: var(--muted);
+    }
+
+    .timer .countdown {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .steps {
+      margin: 1rem 0 2rem;
+    }
+
+    .steps h2 {
+      font-size: 1.125rem;
+      margin-bottom: 1rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .steps h2 svg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+
+    .step-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .step {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem;
+      margin-bottom: 0.5rem;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      transition: all 0.2s ease;
+    }
+
+    .step:hover {
+      background: rgba(255, 255, 255, 0.05);
+      transform: translateY(-1px);
+    }
+
+    .step-icon {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border: 1px solid var(--border);
+    }
+
+    .step-icon svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      color: var(--text-secondary);
+    }
+
+    .step-content {
+      flex: 1;
+    }
+
+    .step-content strong {
+      display: block;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .step-content p {
+      margin: 0;
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn {
+      padding: 0.875rem 1rem;
+      border-radius: 12px;
+      border: none;
+      font-weight: 600;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+
+    .btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn.primary {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+
+    .btn.primary:hover {
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+    }
+
+    .btn.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .note {
+      font-size: 0.875rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    .note strong {
+      color: var(--text-primary);
+    }
+
+    footer {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-align: center;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal.show {
+      display: flex;
+    }
+
+    .modal-content {
+      background: var(--bg-card-glass);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2rem;
+      max-width: 90vw;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: var(--glass-shadow);
+      animation: modalFadeIn 0.3s ease-out;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      color: var(--muted);
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .modal-close:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-primary);
+    }
+
+    .progress {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 2px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 2px;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.02);
+      }
+    }
+
+    @keyframes rotate {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes modalFadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 1.5rem;
+        border-radius: 20px;
+      }
+
+      .alert {
+        padding: 1rem;
+        gap: 0.75rem;
+      }
+
+      .alert .icon {
+        width: 3rem;
+        height: 3rem;
+      }
+
+      .actions {
+        grid-template-columns: 1fr;
+      }
+
+      .btn.full-width {
+        grid-column: auto;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card" role="region" aria-label="World-class security alert demo">
+      <span class="badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+        </svg>
+        SECURITY ALERT
+      </span>
+      <span class="demo-label">DEMO</span>
+      <h1>Critical Security Alert</h1>
+
+      <div class="alert" role="alert" aria-live="assertive">
+        <div class="icon" aria-hidden="true">!</div>
+        <div class="content">
+          <p>Potential Security Breach Detected</p>
+          <p>Your device may be compromised. Take immediate action to protect your data.</p>
+        </div>
+      </div>
+
+      <div class="timer" aria-label="Urgency timer">
+        <p>Time remaining to secure device:</p>
+        <div class="countdown" id="countdown">05:00</div>
+      </div>
+
+      <section class="steps" aria-labelledby="steps-title">
+        <h2 id="steps-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          Recommended Actions
+        </h2>
+        <ol class="step-list">
+          <li class="step">
+            <div class="step-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+              </svg>
+            </div>
+            <div class="step-content">
+              <strong>Stay Calm</strong>
+              <p>Do not install unknown apps or share passwords with anyone claiming to help.</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 21.5c-.77.833.192 2.5 1.732 2.5z"/>
+              </svg>
+            </div>
+            <div class="step-content">
+              <strong>Disconnect</strong>
+              <p>Turn off Wi-Fi, mobile data, or enable Airplane Mode immediately.</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
+              </svg>
+            </div>
+            <div class="step-content">
+              <strong>Change Passwords</strong>
+              <p>Update passwords for email and critical accounts using a secure device.</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+              </svg>
+            </div>
+            <div class="step-content">
+              <strong>Run Security Scan</strong>
+              <p>Use built-in security features or trusted antivirus applications.</p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+              </svg>
+            </div>
+            <div class="step-content">
+              <strong>Contact Support</strong>
+              <p>Reach out to your carrier or device manufacturer for professional assistance.</p>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <div class="actions" role="group" aria-label="Security actions">
+        <button class="btn primary" id="btnHelp" aria-describedby="help-desc">Get Help</button>
+        <button class="btn" id="btnResources" aria-describedby="resources-desc">Resources</button>
+        <button class="btn full-width" id="btnVibrate" aria-describedby="vibrate-desc">Test Alert</button>
+      </div>
+
+      <div class="note">
+        <strong>Important:</strong> This is an educational demonstration only. In a real security incident, never provide OTPs or passwords to unsolicited callers or messages.
+      </div>
+
+      <footer>
+        For actual security incidents, contact official support channels. This demo collects no personal data.
+      </footer>
+    </div>
+  </div>
+
+  <div class="modal" id="helpModal" role="dialog" aria-labelledby="helpTitle" aria-hidden="true">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="helpTitle">Step-by-Step Security Guide</h2>
+        <button class="modal-close" id="closeHelp" aria-label="Close help guide">&times;</button>
+      </div>
+      <div class="progress">
+        <div class="progress-bar" id="helpProgress"></div>
+      </div>
+      <div id="helpContent">
+        <div class="step-content">
+          <strong>1. Disconnect from Networks</strong>
+          <p>Immediately turn off Wi-Fi and mobile data, or enable Airplane Mode. This prevents further unauthorized access to your device.</p>
+        </div>
+        <div class="step-content">
+          <strong>2. Backup Important Data</strong>
+          <p>If possible, backup photos, documents, and contacts to a secure cloud service or external drive using another device.</p>
+        </div>
+        <div class="step-content">
+          <strong>3. Change Critical Passwords</strong>
+          <p>Access your email and banking accounts from a different, trusted device. Change passwords and enable two-factor authentication.</p>
+        </div>
+        <div class="step-content">
+          <strong>4. Run Security Scans</strong>
+          <p>Use your device's built-in security features (like Google Play Protect) or download reputable antivirus software from official app stores.</p>
+        </div>
+        <div class="step-content">
+          <strong>5. Contact Professionals</strong>
+          <p>Call your mobile carrier, bank, or device manufacturer's support line. Report the incident and follow their guidance.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="resourcesModal" role="dialog" aria-labelledby="resourcesTitle" aria-hidden="true">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="resourcesTitle">Security Resources</h2>
+        <button class="modal-close" id="closeResources" aria-label="Close resources">&times;</button>
+      </div>
+      <div id="resourcesContent">
+        <div class="step-content">
+          <strong>Official Security Tools:</strong>
+          <ul>
+            <li>Google Play Protect (Android)</li>
+            <li>Apple's built-in security features (iOS)</li>
+            <li>Microsoft Defender (Windows)</li>
+          </ul>
+        </div>
+        <div class="step-content">
+          <strong>Support Contacts:</strong>
+          <ul>
+            <li>Your mobile carrier's customer service</li>
+            <li>Device manufacturer's support website</li>
+            <li>Your bank's fraud department</li>
+          </ul>
+        </div>
+        <div class="step-content">
+          <strong>Educational Resources:</strong>
+          <ul>
+            <li>StaySafeOnline.org</li>
+            <li>US-CERT.gov</li>
+            <li>Your local cybersecurity agency</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sr-only" id="help-desc">Opens detailed step-by-step security guidance</div>
+  <div class="sr-only" id="resources-desc">Opens list of security resources and tools</div>
+  <div class="sr-only" id="vibrate-desc">Tests device vibration and alert features</div>
+
+  <script>
+    // Countdown timer
+    let timeLeft = 300; // 5 minutes
+    const countdownElement = document.getElementById('countdown');
+
+    function updateCountdown() {
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+      countdownElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      if (timeLeft > 0) {
+        timeLeft--;
+        setTimeout(updateCountdown, 1000);
+      } else {
+        countdownElement.textContent = 'EXPIRED';
+        countdownElement.style.color = '#ef4444';
+      }
+    }
+
+    updateCountdown();
+
+    // Modal functionality
+    function openModal(modalId) {
+      const modal = document.getElementById(modalId);
+      modal.classList.add('show');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+
+      // Focus management
+      const focusableElements = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      const firstFocusable = focusableElements[0];
+      const lastFocusable = focusableElements[focusableElements.length - 1];
+
+      modal.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          closeModal(modalId);
+        }
+        if (e.key === 'Tab') {
+          if (e.shiftKey) {
+            if (document.activeElement === firstFocusable) {
+              lastFocusable.focus();
+              e.preventDefault();
+            }
+          } else {
+            if (document.activeElement === lastFocusable) {
+              firstFocusable.focus();
+              e.preventDefault();
+            }
+          }
+        }
+      });
+
+      firstFocusable.focus();
+    }
+
+    function closeModal(modalId) {
+      const modal = document.getElementById(modalId);
+      modal.classList.remove('show');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = 'auto';
+    }
+
+    // Event listeners
+    document.getElementById('btnHelp').addEventListener('click', () => {
+      openModal('helpModal');
+      // Animate progress bar
+      const progressBar = document.getElementById('helpProgress');
+      progressBar.style.width = '100%';
+    });
+
+    document.getElementById('closeHelp').addEventListener('click', () => closeModal('helpModal'));
+
+    document.getElementById('btnResources').addEventListener('click', () => openModal('resourcesModal'));
+    document.getElementById('closeResources').addEventListener('click', () => closeModal('resourcesModal'));
+
+    document.getElementById('btnVibrate').addEventListener('click', () => {
+      if (navigator.vibrate) {
+        navigator.vibrate([200, 100, 200, 100, 400]);
+        // Visual feedback
+        const btn = document.getElementById('btnVibrate');
+        btn.textContent = 'Vibrating...';
+        btn.style.background = 'var(--accent)';
+        setTimeout(() => {
+          btn.textContent = 'Test Alert';
+          btn.style.background = '';
+        }, 1000);
+      } else {
+        alert('Vibration not supported on this device/browser.');
+      }
+    });
+
+    // Accessibility announcement
+    window.addEventListener('load', () => {
+      const announcement = document.createElement('div');
+      announcement.setAttribute('aria-live', 'polite');
+      announcement.setAttribute('aria-atomic', 'true');
+      announcement.style.position = 'absolute';
+      announcement.style.left = '-9999px';
+      announcement.textContent = 'World-class security alert demo loaded. This is an educational simulation only.';
+      document.body.appendChild(announcement);
+    });
+
+    // Close modals on outside click
+    document.querySelectorAll('.modal').forEach(modal => {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          closeModal(modal.id);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
